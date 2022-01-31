@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title>KhewaSolutions Robot Detector</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="botd.js"></script>
+    <script type="text/javascript" language="javascript">
+      new BotDetector({
+        timeout: 1000,
+        callback: function (result) {
+          var message = document.getElementById("message");
+          var list = document.getElementById("tests");
+
+          message.innerText = result.isBot
+            ? "You are a fucking bot!"
+            : "Ok, I believe you are real...";
+          list.innerHTML = "";
+          for (var test in result.tests) {
+            var li = document.createElement("li");
+            console.log(result.tests);
+            li.innerText = test + ": " + JSON.stringify(result.tests[test]);
+            list.appendChild(li);
+          }
+        },
+      }).init();
+    </script>
+    <style>
+      canvas {
+        border: 1px solid black;
+        width: 560px;
+        height: 360px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h5 class="page-header">JS Bot Detector</h5>
+      <div class="row">
+        <div class="col-lg-12">
+          <p class="text-center">Are you a bot?</p>
+          <p class="text-center" id="message">I'm checking...</p>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex">
+      <div style="flex: 1; display: flex; flex-direction: column">
+        <h1>Mouse Movement Test</h1>
+        <div>
+          <h5>Speed of x: <span id="xspeed"></span></h5>
+          <h5>Speed of y: <span id="yspeed"></span></h5>
+          <h5>Chance: : <span id="chance"></span></h5>
+          <canvas id="myPics" width="560" height="360"></canvas>
+        </div>
+        <div>
+          <h3>Result: <span id="mmr">Not Decided</span></h3>
+        </div>
+      </div>
+      <div style="flex: 1; background-color: blue; color: white">Hello</div>
+      <div style="flex: 1">
+        <ul id="tests"></ul>
+      </div>
+    </div>
+    <script src="./canv.js"></script>
+  </body>
+</html>
